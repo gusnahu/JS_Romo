@@ -1,0 +1,42 @@
+.cards-productos-section{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-top: 5%;
+}
+
+.img-card-product{
+    width: auto;
+    height: 250px;
+    margin-top: 20px;
+}
+
+.title-card{
+    margin-top: 15px;
+}
+.tarjeta{
+    width: 350px;
+    border-radius: 18px;
+    font-family: sans-serif;
+    text-align:center;
+    box-shadow: 15px 15px 30px #bebebe,
+    -15px -15px 30px transparent;
+    margin-bottom: 20px;
+}
+.card-body{
+    font-size: 24px;
+}
+.pie-card{
+    background: #120bd7;
+    border-radius:0 0 15px 15px;
+    padding: 10px;
+    text-align:center;
+}
+
+.max1{
+    height: 70%;
+    width: 70%;
+}
+
+
+
