@@ -67,3 +67,40 @@ input.addEventListener("change", (e) => {
         window.location.href = "../pages/perfil.html";
     }, 2000);
      }
+
+//api formula 1 
+const api = 'http://ergast.com/api/f1/2019/1/driverStandings.json';
+//get names of drivers
+const getDrivers = async () => {
+    const response = await fetch(api);
+    const data = await response.json();
+    const drivers = data.MRData.StandingsTable.StandingsLists[0].DriverStandings;
+    return drivers;
+}
+//get names of drivers
+const getDriversNames = async () => {
+    const drivers = await getDrivers();
+    const driversNames = drivers.map(driver => driver.Driver.givenName);
+    document.getElementById("drivers-name").innerText = driversNames;
+    return driversNames;
+}
+
+//get points of drivers
+const getDriversPoints = async () => {
+    const drivers = await getDrivers();
+    const driversPoints = drivers.map(driver => driver.points);
+    document.getElementById("drivers-point").innerText = driversPoints;
+    return driversPoints
+}
+
+//get constructor of drivers
+const getDriversConstructors = async () => {
+    const drivers = await getDrivers();
+    const driversConstructors = drivers.map(driver => driver.Constructors[0].name);
+    document.getElementById("drivers-constructors").innerText = driversConstructors;
+    return driversConstructors
+}
+
+getDriversNames();
+getDriversPoints();
+getDriversConstructors();
