@@ -8,7 +8,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
   
-  <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="../css/style.css">
 </head>
 
 <body>
@@ -56,7 +56,45 @@
     </div>
   </nav>
 
+  <div>
+    <!-- input to search name of drivers  -->
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="input-group mb-3">
+            <select id="driver-name">
+            </select>
+            <button class="btn btn-outline-secondary" type="button" id="search-driver">Button</button>
+          </div>
+        </div>
+      </div>
 
+      <div id="driver-visibility">
+      <div class="driver-union">
+        <h1 id="driverName"></h1>
+        <h1 id="driverLastName"></h1>
+      </div>
+
+      <div class="driver-union">
+      <p>Posicion: </p><p id="driverPosition"></p>
+      </div>
+
+      <div class="driver-union">
+        <p>Puntos: </p><p id="driverPoints"></p>
+      </div>
+
+      <div class="driver-union">
+        <p>Nacionalidad: </p><p id="driverNationality"></p>
+      </div>
+        <div class="driver-union">
+          <p>Escuderia: </p><p id="constructorName"></p>
+      </div>
+      <div class="driver-union">
+        <p>Ultima actualización de la API: </p><p id="lastUpdate"></p>
+    </div>
+     </div>
+
+</div>
   <!-- Footer -->
   <footer class="text-center text-lg-start bg-light text-muted">
   
@@ -151,7 +189,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
     crossorigin="anonymous"></script>
-    <script src="./js/main.js"></script>
+    <script src="../js/main.js"></script>
 </body>
 
 </html>

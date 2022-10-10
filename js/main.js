@@ -1,106 +1,51 @@
+const api = "http://ergast.com/api/f1/2019/1/driverStandings.json";
 
-// // array de corredores de f1
-// let corredores = [
-//     {
-//         nombre: "max verstappen",
-//         edad: 24,
-//         nacionalidad: "holandesa",
-//         cantidadDeTitulos: 1,
-//         cantidadDePoles: 17,
-//     },
-//     {
-//         nombre: "sergio perez",
-//         edad: 30,
-//         nacionalidad: "mexicana",
-//         cantidadDeTitulos: 0,
-//         cantidadDePoles: 0,
-//     }
-// ];
-
-// function findCorredor(){
-//     let nombre = prompt("Ingrese el nombre del corredor").toLowerCase();
-//     if(nombre == corredores[0].nombre){
-//         window.location.href = "./corredores/max.html";
-//     }
-//     else if(nombre == corredores[1].nombre){
-//         window.location.href = "./corredores/checo.html";
-//     }
-//     else{
-//         alert("No se encontro el corredor");
-//     }
-// }
-// findCorredor();
-
-
-
-const parrafo = document.querySelector("p");
-const input = document.querySelector("input");
-
-input.addEventListener("change", (e) => {
- parrafo.textContent = e.target.value;
- })
-
- const username = document.getElementById('username')
- const password = document.getElementById('password')
- const button = document.getElementById('button')
- 
- button.addEventListener('click', (e) => {
-     e.preventDefault()
-     const data = {
-         username: username.value,
-         password: password.value
-     }
- 
-     console.log(data)
- })
-
- //function to save username and password in local storage 
- function saveData(){
-    localStorage.setItem("username", username.value);
-    localStorage.setItem("password", password.value);
-    swal(
-        'Logueado!',
-        'Sera redirigido a tu perfil',
-        'success',
-    )
-    setTimeout(function(){
-        window.location.href = "../pages/perfil.html";
-    }, 2000);
-     }
-
-//api formula 1 
-const api = 'http://ergast.com/api/f1/2019/1/driverStandings.json';
-//get names of drivers
-const getDrivers = async () => {
-    const response = await fetch(api);
-    const data = await response.json();
-    const drivers = data.MRData.StandingsTable.StandingsLists[0].DriverStandings;
-    return drivers;
+function createSelect() {
+    fetch(api)
+        .then((response) => {
+            return response.json();
+        })
+        .then((data) => {
+            let drivers = data.MRData.StandingsTable.StandingsLists[0].DriverStandings;
+            let select = document.getElementById("driver-name");
+            for (let i = 0; i < drivers.length; i++) {
+                let option = document.createElement("option");
+                option.text = drivers[i].Driver.givenName + " " + drivers[i].Driver.familyName;
+                option.value = drivers[i].Driver.givenName;
+                select.add(option);
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+        });
 }
-//get names of drivers
-const getDriversNames = async () => {
-    const drivers = await getDrivers();
-    const driversNames = drivers.map(driver => driver.Driver.givenName);
-    document.getElementById("drivers-name").innerText = driversNames;
-    return driversNames;
+createSelect();
+function searchDriver(driverName) {
+    fetch(api)
+        .then(response => response.json())
+        .then(data => {
+            let driverStandings = data.MRData.StandingsTable.StandingsLists[0].DriverStandings;
+            let driverPosition = driverStandings.findIndex(driver => driver.Driver.givenName === driverName);
+            document.getElementById("driverName").innerHTML = driverStandings[driverPosition].Driver.givenName;
+            document.getElementById("driverLastName").innerHTML = driverStandings[driverPosition].Driver.familyName;
+            document.getElementById("driverPosition").innerHTML = driverPosition + 1;
+            document.getElementById("driverPoints").innerHTML = driverStandings[driverPosition].points;
+            document.getElementById("driverNationality").innerHTML = driverStandings[driverPosition].Driver.nationality;     
+            document.getElementById("lastUpdate").innerHTML = data.MRData.StandingsTable.StandingsLists[0].season + "-" + data.MRData.StandingsTable.StandingsLists[0].round;
+            // Todo sobre la escuderia
+            document.getElementById("constructorName").innerHTML = driverStandings[driverPosition].Constructors[0].name;
+        })
+        .catch(err => console.log(err));
 }
 
-//get points of drivers
-const getDriversPoints = async () => {
-    const drivers = await getDrivers();
-    const driversPoints = drivers.map(driver => driver.points);
-    document.getElementById("drivers-point").innerText = driversPoints;
-    return driversPoints
-}
+document.getElementById("search-driver").addEventListener("click", function () {
+    let driverName = document.getElementById("driver-name").value;
 
-//get constructor of drivers
-const getDriversConstructors = async () => {
-    const drivers = await getDrivers();
-    const driversConstructors = drivers.map(driver => driver.Constructors[0].name);
-    document.getElementById("drivers-constructors").innerText = driversConstructors;
-    return driversConstructors
-}
+    if (driverName !== "") {
+        searchDriver(driverName);
+        document.getElementById("driver-visibility").style.display = "block";
+    }
 
-getDriversNames();
-getDriversPoints();
-getDriversConstructors();
+});
+
+document.getElementById("driver-visibility").style.display = "none";

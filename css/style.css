@@ -38,5 +38,16 @@
     width: 70%;
 }
 
-
-
+.driver-union{
+    display: flex;
+}
+.driver-union h1{
+    font-size: 30px;
+    margin-top: 20px;
+    margin-left: 20px;
+}
+.driver-union p{
+    font-size: 20px;
+    margin-top: 20px;
+    margin-left: 20px;
+}
