@@ -28,9 +28,12 @@ input.addEventListener("change", (e) => {
     localStorage.setItem("username", username.value);
     localStorage.setItem("password", password.value);
     swal(
-        'Good job!',
-        'You clicked the button!',
-        'success'
-      )
-    window.location.href = "../pages/perfil.html";
+        'Logueado!',
+        'Sera redirigido a la pagina principal',
+        'Exitoso',
+    )
+    setTimeout(function(){
+        window.location.href = "../pages/perfil.html";
+    }, 2000);
+
 }
